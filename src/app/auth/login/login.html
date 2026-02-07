@@ -1,1 +1,51 @@
-<p>login works!</p>
+<div class="container login-container">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card p-4 shadow">
+        <h2 class="text-center mb-4">Employee Login</h2>
+
+        <form (ngSubmit)="login()">
+          <!-- Employee Name -->
+          <div class="form-group mb-3">
+            <label>Employee Name</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="loginData.name"
+              name="name"
+              required>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group mb-3">
+            <label>Password</label>
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="loginData.password"
+              name="password"
+              required>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 mb-3">
+            Login
+          </button>
+        </form>
+
+        <!-- Note -->
+        <p class="text-center text-muted small">
+          This login is only for employees.
+        </p>
+
+        <!-- Apply link -->
+        <p class="text-center">
+          Want to become an employee?
+          <a routerLink="/vacancies" class="text-primary">
+            Apply for vacancies
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+

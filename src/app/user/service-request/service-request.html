@@ -1,1 +1,64 @@
-<p>service-request works!</p>
+<div class="container service-form-container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card p-4 shadow">
+        <h2 class="text-center mb-4">Service Request</h2>
+
+        <form (ngSubmit)="submitForm()">
+          <!-- Name -->
+          <div class="form-group mb-3">
+            <label>Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="formData.name"
+              name="name"
+              required>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group mb-3">
+            <label>Phone Number</label>
+            <input
+              type="tel"
+              class="form-control"
+              [(ngModel)]="formData.phone"
+              name="phone"
+              required>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group mb-3">
+            <label>Email</label>
+            <input
+              type="email"
+              class="form-control"
+              [(ngModel)]="formData.email"
+              name="email"
+              required>
+          </div>
+
+          <!-- Service -->
+          <div class="form-group mb-4">
+            <label>Select Service</label>
+            <select
+              class="form-control"
+              [(ngModel)]="formData.service"
+              name="service"
+              required>
+              <option value="">-- Select --</option>
+              <option>Office Security</option>
+              <option>Home Security</option>
+              <option>Private Guards</option>
+              <option>Event Security</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">
+            Submit Request
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

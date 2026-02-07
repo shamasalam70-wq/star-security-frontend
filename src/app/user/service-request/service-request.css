@@ -1,0 +1,8 @@
+.service-form-container {
+  margin-top: 120px; /* because navbar is fixed */
+  margin-bottom: 80px;
+}
+
+.card {
+  border-radius: 12px;
+}

@@ -1,0 +1,12 @@
+.login-container {
+  margin-top: 120px; /* navbar space */
+  margin-bottom: 100px;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.small {
+  font-size: 13px;
+}

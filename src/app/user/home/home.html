@@ -80,44 +80,68 @@
     </div>
   </div>
   
-  <!-- SERVICES -->
-  <div id="services">
-    <div class="container pt-5">
-      <div class="text-center mb-5">
-        <h5 class="text-primary">Our Services</h5>
-        <h1>Premium Security Services</h1>
-      </div>
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="card p-3">
+ <!-- SERVICES -->
+<div id="services">
+  <div class="container pt-5">
+    <div class="text-center mb-5">
+      <h5 class="text-primary">Our Services</h5>
+      <h1>Premium Security Services</h1>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-4">
+        <a routerLink="/service-request" [queryParams]="{service: 'Office Security'}" class="service-card">
+          <div class="card p-3 h-100">
             <img src="assets/img/service-1.jpg" class="card-img-top">
             <div class="card-body">
               <h5>Office Security</h5>
               <p>Complete protection for corporate spaces.</p>
             </div>
           </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="card p-3">
+        </a>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <a routerLink="/service-request" [queryParams]="{service: 'Home Security'}" class="service-card">
+          <div class="card p-3 h-100">
             <img src="assets/img/service-2.jpg" class="card-img-top">
             <div class="card-body">
               <h5>Home Security</h5>
               <p>24/7 residential security systems.</p>
             </div>
           </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="card p-3">
+        </a>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <a routerLink="/service-request" [queryParams]="{service: 'Private Guards'}" class="service-card">
+          <div class="card p-3 h-100">
             <img src="assets/img/service-3.jpg" class="card-img-top">
             <div class="card-body">
               <h5>Private Guards</h5>
               <p>Personal protection services.</p>
             </div>
           </div>
-        </div>
+        </a>
       </div>
+
+      <div class="col-md-6 mb-4">
+        <a routerLink="/service-request" [queryParams]="{service: 'Event Security'}" class="service-card">
+          <div class="card p-3 h-100">
+            <img src="assets/img/service-4.jpg" class="card-img-top">
+            <div class="card-body">
+              <h5>Event Security</h5>
+              <p>Security for events and gatherings.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
     </div>
   </div>
+</div>
+
   
   <!-- TEAM -->
   <div id="team">
@@ -128,12 +152,12 @@
       </div>
       <div class="row">
         <div class="col-md-3 mb-4 text-center">
-          <img src="assets/img/team-1.jpg" class="img-fluid rounded mb-3">
+          <img src="assets/img/team-2.jpg" class="img-fluid rounded mb-3">
           <h5>John Doe</h5>
           <p>Senior Guard</p>
         </div>
         <div class="col-md-3 mb-4 text-center">
-          <img src="assets/img/team-2.jpg" class="img-fluid rounded mb-3">
+          <img src="assets/img/team-1.jpg" class="img-fluid rounded mb-3">
           <h5>Sarah Lee</h5>
           <p>Supervisor</p>
         </div>
