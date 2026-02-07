@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-employee-layout',
-  imports: [],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './employee-layout.html',
-  styleUrl: './employee-layout.css',
+  styleUrls: ['./employee-layout.css']
 })
-export class EmployeeLayout {
-
-}
+export class EmployeeLayout {}

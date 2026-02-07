@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { AdminDashboard } from '../../admin/admin-dashboard/admin-dashboard';
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [],
+  standalone: true,
+  imports: [AdminDashboard],
   templateUrl: './admin-layout.html',
-  styleUrl: './admin-layout.css',
+  styleUrls: ['./admin-layout.css']
 })
 export class AdminLayout {
-
+  activeTab: string = 'applications';
 }

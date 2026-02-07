@@ -1,0 +1,45 @@
+.admin-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #1f2933;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sidebar li:hover {
+  background: #374151;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+  background: #f4f6f8;
+}
+.empty-state {
+  margin-top: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+.primary {
+  padding: 8px 14px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}

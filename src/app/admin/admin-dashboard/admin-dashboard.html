@@ -1,1 +1,29 @@
-<p>admin-dashboard works!</p>
+<div class="admin-container">
+  <div class="content">
+
+    <h2>{{ tab | titlecase }}</h2>
+
+    <!-- Applications -->
+    <div *ngIf="tab === 'applications'">
+      <p class="empty-state">No applications yet</p>
+    </div>
+
+    <!-- Employees -->
+    <div *ngIf="tab === 'employees'">
+      <p class="empty-state">No employees found</p>
+    </div>
+
+    <!-- Services -->
+    <div *ngIf="tab === 'services'">
+      <button class="primary">Add Service</button>
+      <p class="empty-state">No services created</p>
+    </div>
+
+    <!-- Vacancies -->
+    <div *ngIf="tab === 'vacancies'">
+      <button class="primary">Add Vacancy</button>
+      <p class="empty-state">No vacancies posted</p>
+    </div>
+
+  </div>
+</div>

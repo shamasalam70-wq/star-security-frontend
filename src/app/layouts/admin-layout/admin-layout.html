@@ -1,1 +1,15 @@
-<p>admin-layout works!</p>
+<div class="admin-wrapper">
+  <div class="admin-sidebar">
+    <h3>Admin Panel</h3>
+    <ul>
+      <li (click)="activeTab='applications'">Applications</li>
+      <li (click)="activeTab='employees'">Employees</li>
+      <li (click)="activeTab='services'">Services</li>
+      <li (click)="activeTab='vacancies'">Vacancies</li>
+    </ul>
+  </div>
+
+  <div class="admin-content">
+    <app-admin-dashboard [tab]="activeTab"></app-admin-dashboard>
+  </div>
+</div>
