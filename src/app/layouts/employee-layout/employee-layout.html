@@ -1,1 +1,63 @@
-<router-outlet></router-outlet>
+<div class="employee-wrapper">
+    <div class="employee-sidebar">
+        <h3>Employee Panel</h3>
+        <ul>
+            <li (click)="activeTab='dashboard'" [class.active]="activeTab === 'dashboard'">
+                Dashboard
+            </li>
+
+            <li (click)="activeTab='jobs'" [class.active]="activeTab === 'jobs'">
+                My Jobs
+            </li>
+
+            <li (click)="activeTab='profile'" [class.active]="activeTab === 'profile'">
+                Profile
+            </li>
+        </ul>
+    </div>
+
+    <div class="employee-content">
+        <div class="employee-panel">
+
+            <!-- Dashboard -->
+            <div *ngIf="activeTab === 'dashboard'">
+                <h2>Dashboard</h2>
+                <p class="empty-state">
+                    Dashboard works ✅
+                    This is the employee dashboard section.
+                </p>
+            </div>
+
+            <!-- My Jobs -->
+            <div *ngIf="activeTab === 'jobs'">
+                <h2>My Jobs</h2>
+                <p class="empty-state">
+                    My Jobs works ✅
+                    This section will show assigned jobs.
+                </p>
+            </div>
+
+            <!-- Profile -->
+            <div *ngIf="activeTab === 'profile'">
+                <h2>Profile</h2>
+                <p class="empty-state">
+                    Profile works ✅
+                    This section will show employee profile.
+                </p>
+
+                <div class="profile-card">
+                    <label>Name</label>
+                    <input type="text" disabled placeholder="Employee Name">
+
+                    <label>Email</label>
+                    <input type="text" disabled placeholder="employee@email.com">
+
+                    <label>Phone</label>
+                    <input type="text" disabled placeholder="+92 3xx xxxxxxx">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

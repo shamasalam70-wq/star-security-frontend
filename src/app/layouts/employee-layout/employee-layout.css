@@ -1,0 +1,101 @@
+/* Wrapper */
+.employee-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #f1f5f9;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.employee-sidebar {
+  width: 240px;
+  background: #0f172a;
+  color: white;
+  padding: 25px 15px;
+}
+
+.employee-sidebar h3 {
+  margin-bottom: 25px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.employee-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.employee-sidebar li {
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.employee-sidebar li:hover {
+  background: #1e293b;
+}
+
+/* Content background */
+.employee-content {
+  flex: 1;
+  padding: 30px;
+  background: #e2e8f0; /* light grey app background */
+}
+
+/* Main white panel */
+.employee-panel {
+  background: white;
+  border-radius: 10px;
+  padding: 25px 30px;
+  min-height: calc(100vh - 60px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* Headings */
+.employee-panel h2 {
+  margin-bottom: 15px;
+  color: #0f172a;
+}
+
+/* Empty state cards */
+.empty-state {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  color: #64748b;
+}
+
+/* Profile card */
+.profile-card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  border: 1px solid #e2e8f0;
+}
+
+.profile-card label {
+  display: block;
+  margin-top: 12px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.profile-card input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 4px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: white;
+}
+.employee-sidebar li.active {
+  background: #2563eb;
+  color: white;
+}

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-employee-layout',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CommonModule],
   templateUrl: './employee-layout.html',
   styleUrls: ['./employee-layout.css']
 })
-export class EmployeeLayout {}
+export class EmployeeLayout {
+  activeTab: string = 'dashboard';
+}
