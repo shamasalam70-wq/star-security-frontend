@@ -1,1 +1,88 @@
-<p>job-apply works!</p>
+<div class="container pt-5 pb-5">
+  <div class="text-center mb-5">
+    <h2>Current Vacancies</h2>
+    <p>Select a position to apply</p>
+  </div>
+
+  <div class="row">
+
+    <!-- Card 1 -->
+    <div class="col-md-6 mb-4">
+      <div class="card vacancy-card"
+           routerLink="/job-apply-form"
+           [queryParams]="{role: 'Security Guard'}">
+        <div class="card-body">
+          <h5>Security Guard</h5>
+          <p>Salary: 30,000 PKR / month</p>
+          <p>Timing: 8 Hours Shift</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-md-6 mb-4">
+      <div class="card vacancy-card"
+           routerLink="/job-apply-form"
+           [queryParams]="{role: 'Supervisor'}">
+        <div class="card-body">
+          <h5>Supervisor</h5>
+          <p>Salary: 45,000 PKR / month</p>
+          <p>Timing: Day Shift</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-md-6 mb-4">
+      <div class="card vacancy-card"
+           routerLink="/job-apply-form"
+           [queryParams]="{role: 'Control Room Operator'}">
+        <div class="card-body">
+          <h5>Control Room Operator</h5>
+          <p>Salary: 40,000 PKR / month</p>
+          <p>Timing: Night Shift</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="col-md-6 mb-4">
+      <div class="card vacancy-card"
+           routerLink="/job-apply-form"
+           [queryParams]="{role: 'Reception Security'}">
+        <div class="card-body">
+          <h5>Reception Security</h5>
+          <p>Salary: 28,000 PKR / month</p>
+          <p>Timing: Office Hours</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="col-md-6 mb-4">
+      <div class="card vacancy-card"
+           routerLink="/job-apply-form"
+           [queryParams]="{role: 'Bodyguard'}">
+        <div class="card-body">
+          <h5>Bodyguard</h5>
+          <p>Salary: 60,000 PKR / month</p>
+          <p>Timing: Flexible</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="col-md-6 mb-4">
+      <div class="card vacancy-card"
+           routerLink="/job-apply-form"
+           [queryParams]="{role: 'CCTV Technician'}">
+        <div class="card-body">
+          <h5>CCTV Technician</h5>
+          <p>Salary: 50,000 PKR / month</p>
+          <p>Timing: Field Work</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
