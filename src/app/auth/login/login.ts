@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,19 +14,30 @@ import { RouterModule } from '@angular/router';
 export class Login {
 
   loginData = {
-    name: '',
+    email: '',
     password: ''
   };
 
   submitted = false;
 
+  constructor(private http: HttpClient, private router: Router) {}
+
   login() {
     this.submitted = true;
-  }
 
-  onlyLetters(event: any) {
-    event.target.value = event.target.value.replace(/[^a-zA-Z ]/g, '');
-    this.loginData.name = event.target.value;
+    this.http.post<any>('http://localhost:5049/api/Auth/login', this.loginData)
+      .subscribe({
+        next: (user) => {
+          if (user.role === 'Admin') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/employee']);
+          }
+        },
+        error: () => {
+          alert('Invalid credentials');
+        }
+      });
   }
 
   noSpaces(event: any) {
