@@ -1,28 +1,128 @@
 <div class="admin-container">
   <div class="content">
 
-    <h2>{{ tab | titlecase }}</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>{{ tab | titlecase }}</h2>
+      <button *ngIf="['vacancies', 'services', 'clients'].includes(tab)" 
+              class="btn btn-primary" (click)="showAddForm = !showAddForm">
+        {{ showAddForm ? 'Close Form' : 'Add New ' + (tab | titlecase) }}
+      </button>
+    </div>
 
+    <!-- ADD FORMS -->
+    <div *ngIf="showAddForm" class="card p-3 mb-4 shadow-sm border-0">
+      <div *ngIf="tab === 'vacancies'">
+        <h4>Add Vacancy</h4>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Title" [(ngModel)]="newVacancy.title"></div>
+        <div class="form-group"><textarea class="form-control" placeholder="Description" [(ngModel)]="newVacancy.description"></textarea></div>
+        <button class="btn btn-success" (click)="addVacancy()">Save</button>
+      </div>
+
+      <div *ngIf="tab === 'services'">
+        <h4>Add Service</h4>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Service Name" [(ngModel)]="newService.name"></div>
+        <div class="form-group"><textarea class="form-control" placeholder="Description" [(ngModel)]="newService.description"></textarea></div>
+        <button class="btn btn-success" (click)="addService()">Save</button>
+      </div>
+
+      <div *ngIf="tab === 'clients'">
+        <h4>Add Client</h4>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Name" [(ngModel)]="newClient.name"></div>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Services Availed" [(ngModel)]="newClient.servicesAvailed"></div>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Staff Assigned" [(ngModel)]="newClient.staffAssigned"></div>
+        <button class="btn btn-success" (click)="addClient()">Save</button>
+      </div>
+    </div>
+
+    <!-- LIST TABLES -->
+    
     <!-- Applications -->
     <div *ngIf="tab === 'applications'">
-      <p class="empty-state">No applications yet</p>
+      <table class="admin-table" *ngIf="applications.length > 0">
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>CNIC</th><th>Phone</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of applications">
+            <td>{{ app.name }}</td><td>{{ app.email }}</td><td>{{ app.cnic }}</td><td>{{ app.phone }}</td>
+            <td><span class="badge badge-pending">{{ app.status }}</span></td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="approveApp(app.id)">Approve</button>
+              <button class="btn btn-danger btn-sm" (click)="rejectApp(app.id)">Reject</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-state" *ngIf="applications.length === 0">No pending applications</p>
     </div>
 
     <!-- Employees -->
     <div *ngIf="tab === 'employees'">
-      <p class="empty-state">No employees found</p>
-    </div>
-
-    <!-- Services -->
-    <div *ngIf="tab === 'services'">
-      <button class="primary">Add Service</button>
-      <p class="empty-state">No services created</p>
+      <table class="admin-table" *ngIf="employees.length > 0">
+        <thead>
+          <tr><th>Code</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of employees">
+            <td>{{ emp.employeeCode }}</td><td>{{ emp.name }}</td><td>{{ emp.email }}</td><td>{{ emp.contactNumber }}</td><td>{{ emp.role }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteEmployee(emp.id)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-state" *ngIf="employees.length === 0">No employees found</p>
     </div>
 
     <!-- Vacancies -->
     <div *ngIf="tab === 'vacancies'">
-      <button class="primary">Add Vacancy</button>
-      <p class="empty-state">No vacancies posted</p>
+      <table class="admin-table" *ngIf="vacancies.length > 0">
+        <thead><tr><th>Title</th><th>Description</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let v of vacancies"><td>{{ v.title }}</td><td>{{ v.description }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteVacancy(v.id)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-state" *ngIf="vacancies.length === 0">No vacancies posted</p>
+    </div>
+
+    <!-- Services -->
+    <div *ngIf="tab === 'services'">
+      <table class="admin-table" *ngIf="services.length > 0">
+        <thead><tr><th>Name</th><th>Description</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let s of services"><td>{{ s.name }}</td><td>{{ s.description }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteService(s.id)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-state" *ngIf="services.length === 0">No services created</p>
+    </div>
+
+    <!-- Service Requests -->
+    <div *ngIf="tab === 'service-requests'">
+      <table class="admin-table" *ngIf="serviceRequests.length > 0">
+        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Service</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let r of serviceRequests">
+            <td>{{ r.name }}</td><td>{{ r.email }}</td><td>{{ r.phone }}</td><td>{{ r.requestedServiceName }}</td><td>{{ r.requestedAt | date:'short' }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteServiceRequest(r.id)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-state" *ngIf="serviceRequests.length === 0">No service requests</p>
+    </div>
+
+    <!-- Clients -->
+    <div *ngIf="tab === 'clients'">
+      <table class="admin-table" *ngIf="clients.length > 0">
+        <thead><tr><th>Name</th><th>Services</th><th>Staff</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let c of clients"><td>{{ c.name }}</td><td>{{ c.servicesAvailed }}</td><td>{{ c.staffAssigned }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteClient(c.id)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-state" *ngIf="clients.length === 0">No clients registered</p>
     </div>
 
   </div>

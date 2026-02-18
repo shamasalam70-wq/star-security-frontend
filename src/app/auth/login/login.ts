@@ -1,47 +1,65 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
-
-  loginData = {
-    email: '',
-    password: ''
-  };
-
+export class Login implements OnInit {
+  loginForm!: FormGroup;
   submitted = false;
+  errorMessage = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  get f() { return this.loginForm.controls; }
 
   login() {
     this.submitted = true;
+    this.errorMessage = '';
 
-    this.http.post<any>('http://localhost:5049/api/Auth/login', this.loginData)
-      .subscribe({
-        next: (user) => {
-          if (user.role === 'Admin') {
-            this.router.navigate(['/admin']);
-          } else {
-            this.router.navigate(['/employee']);
-          }
-        },
-        error: () => {
-          alert('Invalid credentials');
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (user) => {
+        console.log('Login successful, user data:', user);
+        // Handle both camelCase and PascalCase just in case
+        const role = user.role || user.Role;
+        
+        if (role === 'Admin') {
+          console.log('Redirecting to Admin Panel...');
+          this.router.navigate(['/admin']);
+        } else if (role === 'Employee') {
+          console.log('Redirecting to Employee Dashboard...');
+          this.router.navigate(['/employee']);
+        } else {
+          console.log('Unknown role or missing role, redirecting to home.');
+          this.router.navigate(['/']);
         }
-      });
-  }
-
-  noSpaces(event: any) {
-    event.target.value = event.target.value.replace(/\s/g, '');
-    this.loginData.password = event.target.value;
+      },
+      error: (err) => {
+        this.errorMessage = 'Invalid email or password';
+        console.error('Login error:', err);
+      }
+    });
   }
 }

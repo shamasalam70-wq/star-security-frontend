@@ -2,14 +2,18 @@
   <div class="admin-sidebar">
     <h3>Admin Panel</h3>
     <ul>
-      <li (click)="activeTab='applications'">Applications</li>
-      <li (click)="activeTab='employees'">Employees</li>
-      <li (click)="activeTab='services'">Services</li>
-      <li (click)="activeTab='vacancies'">Vacancies</li>
+      <li (click)="activeTab='applications'" [class.active]="activeTab === 'applications'">Applications</li>
+      <li (click)="activeTab='employees'" [class.active]="activeTab === 'employees'">Employees</li>
+      <li (click)="activeTab='services'" [class.active]="activeTab === 'services'">Services</li>
+      <li (click)="activeTab='vacancies'" [class.active]="activeTab === 'vacancies'">Vacancies</li>
+      <li (click)="activeTab='service-requests'" [class.active]="activeTab === 'service-requests'">Service Requests</li>
+      <li (click)="activeTab='clients'" [class.active]="activeTab === 'clients'">Clients</li>
+      <li (click)="logout()" class="logout-item">Logout</li>
     </ul>
   </div>
 
   <div class="admin-content">
+    <!-- Render the dashboard and pass the tab as an Input -->
     <app-admin-dashboard [tab]="activeTab"></app-admin-dashboard>
   </div>
 </div>

@@ -1,1 +1,59 @@
-<p>employee-dashboard works!</p>
+<div class="employee-dashboard-container p-5">
+  <h2 class="mb-4">Employee Dashboard</h2>
+
+  <div *ngIf="employee; else loading">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Profile Information</h5>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Employee Code:</div>
+          <div class="col-md-9 text-muted">{{ employee.employeeCode }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Full Name:</div>
+          <div class="col-md-9">{{ employee.name }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Email Address:</div>
+          <div class="col-md-9">{{ employee.email }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Phone Number:</div>
+          <div class="col-md-9">{{ employee.contactNumber }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Address:</div>
+          <div class="col-md-9">{{ employee.address || 'Not provided' }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Role:</div>
+          <div class="col-md-9"><span class="badge badge-info">{{ employee.role }}</span></div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Department:</div>
+          <div class="col-md-9">{{ employee.department || 'General' }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Grade:</div>
+          <div class="col-md-9">{{ employee.grade || 'N/A' }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Client Assigned:</div>
+          <div class="col-md-9">{{ employee.client || 'Awaiting Assignment' }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3 font-weight-bold">Achievements:</div>
+          <div class="col-md-9">{{ employee.achievements || 'None' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="text-center p-5">
+      <p>Loading profile details...</p>
+    </div>
+  </ng-template>
+</div>

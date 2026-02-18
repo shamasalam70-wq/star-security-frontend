@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { VacancyService } from '../../services/vacancy.service';
 
 
 @Component({
@@ -10,12 +11,14 @@ import { RouterModule } from '@angular/router';
   templateUrl: './job-apply.html',
   styleUrl: './job-apply.css',
 })
-export class JobApply {
+export class JobApply implements OnInit {
+  vacancies: any[] = [];
 
-  vacancies = [
-    { title: 'Security Guard', salary: '25,000 PKR', timing: 'Day Shift' },
-    { title: 'Night Watchman', salary: '30,000 PKR', timing: 'Night Shift' },
-    { title: 'Office Security', salary: '35,000 PKR', timing: '9am - 6pm' },
-    { title: 'Event Guard', salary: 'Per Event', timing: 'Flexible' }
-  ];
+  constructor(private vacancyService: VacancyService) {}
+
+  ngOnInit() {
+    this.vacancyService.getVacancies().subscribe(data => {
+      this.vacancies = data;
+    });
+  }
 }

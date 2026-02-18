@@ -1,48 +1,71 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Navbar } from '../../shared/navbar/navbar';
-
+import { ServiceRequestService } from '../../services/service-request.service';
+import { VacancyService } from '../../services/vacancy.service'; // Using vacancy service for simplicity if it handles services too, or I should use a dedicated service service
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-service-request',
   standalone: true,
-  imports: [FormsModule, CommonModule, Navbar],
+  imports: [ReactiveFormsModule, CommonModule, Navbar],
   templateUrl: './service-request.html',
   styleUrl: './service-request.css',
 })
-export class ServiceRequest {
-
-  formData = {
-    name: '',
-    phone: '',
-    email: '',
-    service: ''
-  };
-
+export class ServiceRequest implements OnInit {
+  requestForm!: FormGroup;
   submitted = false;
+  errorMessage = '';
+  services: any[] = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private serviceRequestService: ServiceRequestService,
+    private http: HttpClient
+  ) {}
+
+  ngOnInit() {
+    this.http.get<any[]>(`${environment.apiUrl}/Services`).subscribe(data => {
+      this.services = data;
+    });
+
+    this.requestForm = this.fb.group({
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      service: ['', Validators.required]
+    });
+  }
+
+  get f() { return this.requestForm.controls; }
 
   submitForm() {
     this.submitted = true;
+    this.errorMessage = '';
 
-    if (
-      this.formData.name &&
-      this.formData.phone &&
-      this.formData.email &&
-      this.formData.service
-    ) {
-      console.log('Form submitted:', this.formData);
-      alert('Service request submitted successfully!');
+    if (this.requestForm.invalid) {
+      return;
     }
-  }
 
-  onlyNumbers(event: any) {
-    event.target.value = event.target.value.replace(/[^0-9]/g, '');
-    this.formData.phone = event.target.value;
-  }
+    const requestData = {
+      Name: this.requestForm.value.name,
+      Phone: this.requestForm.value.phone,
+      Email: this.requestForm.value.email,
+      RequestedServiceName: this.requestForm.value.service
+    };
 
-  onlyLetters(event: any) {
-    event.target.value = event.target.value.replace(/[^a-zA-Z\s]/g, '');
-    this.formData.name = event.target.value;
+    this.serviceRequestService.createServiceRequest(requestData).subscribe({
+      next: (res) => {
+        alert('Service request submitted successfully!');
+        this.requestForm.reset();
+        this.submitted = false;
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to submit service request.';
+        console.error(err);
+      }
+    });
   }
 }

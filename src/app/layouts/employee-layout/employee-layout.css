@@ -99,3 +99,15 @@
   background: #2563eb;
   color: white;
 }
+
+.logout-item {
+  margin-top: 30px !important;
+  color: #fb7185 !important;
+  border-top: 1px solid #334155;
+  padding-top: 15px !important;
+}
+
+.logout-item:hover {
+  background: #be123c !important;
+  color: white !important;
+}
