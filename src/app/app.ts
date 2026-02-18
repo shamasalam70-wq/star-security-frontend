@@ -13,11 +13,8 @@ import { UserService } from './services/user';
 export class App implements OnInit {
   protected readonly title = signal('Eproject-UI');
 
-  constructor(private userService: UserService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(res => {
-      console.log(res);
-    });
   }
 }

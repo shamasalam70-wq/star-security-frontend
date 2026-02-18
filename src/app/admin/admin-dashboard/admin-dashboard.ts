@@ -29,15 +29,14 @@ export class AdminDashboard implements OnInit, OnChanges {
   // Models for new items - using PascalCase to match backend models exactly
   newVacancy = { Title: '', Description: '' };
   newService = { Name: '', Description: '' };
-  newClient = { Name: '', ServicesAvailed: '', StaffAssigned: '', ContactEmail: '', ContactPhone: '' };
 
   showAddForm = false;
+  editingEmployee: any = null;
 
   constructor(
     private applicationService: ApplicationService,
     private employeeService: EmployeeService,
     private vacancyService: VacancyService,
-    private clientService: ClientService,
     private serviceRequestService: ServiceRequestService,
     private http: HttpClient
   ) {}
@@ -49,6 +48,7 @@ export class AdminDashboard implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tab']) {
       this.showAddForm = false;
+      this.editingEmployee = null;
       this.loadData();
     }
   }
@@ -69,9 +69,8 @@ export class AdminDashboard implements OnInit, OnChanges {
         break;
       case 'service-requests':
         this.serviceRequestService.getServiceRequests().subscribe(data => this.serviceRequests = data);
-        break;
-      case 'clients':
-        this.clientService.getClients().subscribe(data => this.clients = data);
+        // Load employees for assignment
+        this.employeeService.getEmployees().subscribe(data => this.employees = data);
         break;
       case 'services':
         this.http.get<any[]>(`${environment.apiUrl}/Services`).subscribe(data => this.services = data);
@@ -111,22 +110,6 @@ export class AdminDashboard implements OnInit, OnChanges {
     }
   }
 
-  // CRUD for Client
-  addClient() {
-    this.clientService.createClient(this.newClient).subscribe(() => {
-      alert('Client Added!');
-      this.newClient = { Name: '', ServicesAvailed: '', StaffAssigned: '', ContactEmail: '', ContactPhone: '' };
-      this.showAddForm = false;
-      this.loadData();
-    });
-  }
-
-  deleteClient(id: number) {
-    if (confirm('Delete this client?')) {
-      this.clientService.deleteClient(id).subscribe(() => this.loadData());
-    }
-  }
-
   // Applications
   approveApp(id: number) {
     this.applicationService.approve(id).subscribe(() => {
@@ -142,6 +125,33 @@ export class AdminDashboard implements OnInit, OnChanges {
     });
   }
 
+  editEmployee(emp: any) {
+    // Clone to avoid modifying the original list prematurely
+    this.editingEmployee = { 
+      id: emp.id || emp.Id,
+      name: emp.name || emp.Name,
+      email: emp.email || emp.Email,
+      contactNumber: emp.contactNumber || emp.ContactNumber,
+      employeeCode: emp.employeeCode || emp.EmployeeCode,
+      password: emp.password || emp.Password || '123456',
+      role: emp.role || emp.Role,
+      department: emp.department || emp.Department,
+      grade: emp.grade || emp.Grade,
+      client: emp.client || emp.Client,
+      achievements: emp.achievements || emp.Achievements
+    };
+  }
+
+  updateEmployee() {
+    if (this.editingEmployee) {
+      this.employeeService.updateEmployee(this.editingEmployee.id, this.editingEmployee).subscribe(() => {
+        alert('Employee Updated!');
+        this.editingEmployee = null;
+        this.loadData();
+      });
+    }
+  }
+
   deleteEmployee(id: number) {
     if (confirm('Delete this employee?')) {
       this.employeeService.deleteEmployee(id).subscribe(() => this.loadData());
@@ -151,6 +161,16 @@ export class AdminDashboard implements OnInit, OnChanges {
   deleteServiceRequest(id: number) {
     if (confirm('Delete this request?')) {
       this.serviceRequestService.deleteServiceRequest(id).subscribe(() => this.loadData());
+    }
+  }
+
+  assignEmployee(requestId: number, event: any) {
+    const employeeId = +event.target.value;
+    if (employeeId) {
+      this.serviceRequestService.assignEmployee(requestId, employeeId).subscribe(() => {
+        alert('Employee Assigned!');
+        this.loadData();
+      });
     }
   }
 }

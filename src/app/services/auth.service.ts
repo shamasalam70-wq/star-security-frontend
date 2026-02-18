@@ -26,12 +26,20 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    const user = localStorage.getItem('currentUser');
-    return user ? JSON.parse(user) : null;
+    const userJson = localStorage.getItem('currentUser');
+    if (!userJson) return null;
+    const user = JSON.parse(userJson);
+    // Normalize properties for easier access
+    return {
+      id: user.id || user.Id,
+      name: user.name || user.Name,
+      email: user.email || user.Email,
+      role: user.role || user.Role
+    };
   }
 
   isLoggedIn() {
-    return !!this.getCurrentUser();
+    return !!localStorage.getItem('currentUser');
   }
 
   getRole() {

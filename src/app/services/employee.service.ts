@@ -21,6 +21,10 @@ export class EmployeeService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
+  getEmployeeByEmail(email: string) {
+    return this.http.get<any>(`${this.apiUrl}/by-email/${email}`);
+  }
+
   createEmployee(employee: any) {
     return this.http.post(`${this.apiUrl}`, employee);
   }
