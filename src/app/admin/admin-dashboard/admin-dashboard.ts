@@ -26,10 +26,10 @@ export class AdminDashboard implements OnInit, OnChanges {
   clients: any[] = [];
   services: any[] = [];
 
-  // Models for new items
-  newVacancy = { title: '', description: '' };
-  newService = { name: '', description: '' };
-  newClient = { name: '', servicesAvailed: '', staffAssigned: '', contactEmail: '', contactPhone: '' };
+  // Models for new items - using PascalCase to match backend models exactly
+  newVacancy = { Title: '', Description: '' };
+  newService = { Name: '', Description: '' };
+  newClient = { Name: '', ServicesAvailed: '', StaffAssigned: '', ContactEmail: '', ContactPhone: '' };
 
   showAddForm = false;
 
@@ -62,7 +62,10 @@ export class AdminDashboard implements OnInit, OnChanges {
         this.employeeService.getEmployees().subscribe(data => this.employees = data);
         break;
       case 'vacancies':
-        this.vacancyService.getVacancies().subscribe(data => this.vacancies = data);
+        this.vacancyService.getVacancies().subscribe(data => {
+          console.log('Admin Vacancies:', data);
+          this.vacancies = data;
+        });
         break;
       case 'service-requests':
         this.serviceRequestService.getServiceRequests().subscribe(data => this.serviceRequests = data);
@@ -80,7 +83,7 @@ export class AdminDashboard implements OnInit, OnChanges {
   addVacancy() {
     this.vacancyService.createVacancy(this.newVacancy).subscribe(() => {
       alert('Vacancy Added!');
-      this.newVacancy = { title: '', description: '' };
+      this.newVacancy = { Title: '', Description: '' };
       this.showAddForm = false;
       this.loadData();
     });
@@ -96,7 +99,7 @@ export class AdminDashboard implements OnInit, OnChanges {
   addService() {
     this.http.post(`${environment.apiUrl}/Services`, this.newService).subscribe(() => {
       alert('Service Added!');
-      this.newService = { name: '', description: '' };
+      this.newService = { Name: '', Description: '' };
       this.showAddForm = false;
       this.loadData();
     });
@@ -112,7 +115,7 @@ export class AdminDashboard implements OnInit, OnChanges {
   addClient() {
     this.clientService.createClient(this.newClient).subscribe(() => {
       alert('Client Added!');
-      this.newClient = { name: '', servicesAvailed: '', staffAssigned: '', contactEmail: '', contactPhone: '' };
+      this.newClient = { Name: '', ServicesAvailed: '', StaffAssigned: '', ContactEmail: '', ContactPhone: '' };
       this.showAddForm = false;
       this.loadData();
     });

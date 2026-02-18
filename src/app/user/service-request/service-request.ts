@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Navbar } from '../../shared/navbar/navbar';
 import { ServiceRequestService } from '../../services/service-request.service';
-import { VacancyService } from '../../services/vacancy.service'; // Using vacancy service for simplicity if it handles services too, or I should use a dedicated service service
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-service-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, Navbar],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './service-request.html',
   styleUrl: './service-request.css',
 })

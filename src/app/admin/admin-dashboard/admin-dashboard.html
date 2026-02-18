@@ -13,23 +13,23 @@
     <div *ngIf="showAddForm" class="card p-3 mb-4 shadow-sm border-0">
       <div *ngIf="tab === 'vacancies'">
         <h4>Add Vacancy</h4>
-        <div class="form-group"><input type="text" class="form-control" placeholder="Title" [(ngModel)]="newVacancy.title"></div>
-        <div class="form-group"><textarea class="form-control" placeholder="Description" [(ngModel)]="newVacancy.description"></textarea></div>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Title" [(ngModel)]="newVacancy.Title"></div>
+        <div class="form-group"><textarea class="form-control" placeholder="Description" [(ngModel)]="newVacancy.Description"></textarea></div>
         <button class="btn btn-success" (click)="addVacancy()">Save</button>
       </div>
 
       <div *ngIf="tab === 'services'">
         <h4>Add Service</h4>
-        <div class="form-group"><input type="text" class="form-control" placeholder="Service Name" [(ngModel)]="newService.name"></div>
-        <div class="form-group"><textarea class="form-control" placeholder="Description" [(ngModel)]="newService.description"></textarea></div>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Service Name" [(ngModel)]="newService.Name"></div>
+        <div class="form-group"><textarea class="form-control" placeholder="Description" [(ngModel)]="newService.Description"></textarea></div>
         <button class="btn btn-success" (click)="addService()">Save</button>
       </div>
 
       <div *ngIf="tab === 'clients'">
         <h4>Add Client</h4>
-        <div class="form-group"><input type="text" class="form-control" placeholder="Name" [(ngModel)]="newClient.name"></div>
-        <div class="form-group"><input type="text" class="form-control" placeholder="Services Availed" [(ngModel)]="newClient.servicesAvailed"></div>
-        <div class="form-group"><input type="text" class="form-control" placeholder="Staff Assigned" [(ngModel)]="newClient.staffAssigned"></div>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Name" [(ngModel)]="newClient.Name"></div>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Services Availed" [(ngModel)]="newClient.ServicesAvailed"></div>
+        <div class="form-group"><input type="text" class="form-control" placeholder="Staff Assigned" [(ngModel)]="newClient.StaffAssigned"></div>
         <button class="btn btn-success" (click)="addClient()">Save</button>
       </div>
     </div>
@@ -44,11 +44,11 @@
         </thead>
         <tbody>
           <tr *ngFor="let app of applications">
-            <td>{{ app.name }}</td><td>{{ app.email }}</td><td>{{ app.cnic }}</td><td>{{ app.phone }}</td>
-            <td><span class="badge badge-pending">{{ app.status }}</span></td>
+            <td>{{ app.name || app.Name }}</td><td>{{ app.email || app.Email }}</td><td>{{ app.cnic || app.Cnic }}</td><td>{{ app.phone || app.Phone }}</td>
+            <td><span class="badge badge-pending">{{ app.status || app.Status }}</span></td>
             <td>
-              <button class="btn btn-success btn-sm" (click)="approveApp(app.id)">Approve</button>
-              <button class="btn btn-danger btn-sm" (click)="rejectApp(app.id)">Reject</button>
+              <button class="btn btn-success btn-sm" (click)="approveApp(app.id || app.Id)">Approve</button>
+              <button class="btn btn-danger btn-sm" (click)="rejectApp(app.id || app.Id)">Reject</button>
             </td>
           </tr>
         </tbody>
@@ -64,8 +64,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let emp of employees">
-            <td>{{ emp.employeeCode }}</td><td>{{ emp.name }}</td><td>{{ emp.email }}</td><td>{{ emp.contactNumber }}</td><td>{{ emp.role }}</td>
-            <td><button class="btn btn-danger btn-sm" (click)="deleteEmployee(emp.id)">Delete</button></td>
+            <td>{{ emp.employeeCode || emp.EmployeeCode }}</td><td>{{ emp.name || emp.Name }}</td><td>{{ emp.email || emp.Email }}</td><td>{{ emp.contactNumber || emp.ContactNumber }}</td><td>{{ emp.role || emp.Role }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteEmployee(emp.id || emp.Id)">Delete</button></td>
           </tr>
         </tbody>
       </table>
@@ -77,8 +77,8 @@
       <table class="admin-table" *ngIf="vacancies.length > 0">
         <thead><tr><th>Title</th><th>Description</th><th>Actions</th></tr></thead>
         <tbody>
-          <tr *ngFor="let v of vacancies"><td>{{ v.title }}</td><td>{{ v.description }}</td>
-            <td><button class="btn btn-danger btn-sm" (click)="deleteVacancy(v.id)">Delete</button></td>
+          <tr *ngFor="let v of vacancies"><td>{{ v.title || v.Title }}</td><td>{{ v.description || v.Description }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteVacancy(v.id || v.Id)">Delete</button></td>
           </tr>
         </tbody>
       </table>
@@ -90,8 +90,8 @@
       <table class="admin-table" *ngIf="services.length > 0">
         <thead><tr><th>Name</th><th>Description</th><th>Actions</th></tr></thead>
         <tbody>
-          <tr *ngFor="let s of services"><td>{{ s.name }}</td><td>{{ s.description }}</td>
-            <td><button class="btn btn-danger btn-sm" (click)="deleteService(s.id)">Delete</button></td>
+          <tr *ngFor="let s of services"><td>{{ s.name || s.Name }}</td><td>{{ s.description || s.Description }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteService(s.id || s.Id)">Delete</button></td>
           </tr>
         </tbody>
       </table>
@@ -104,8 +104,8 @@
         <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Service</th><th>Date</th><th>Actions</th></tr></thead>
         <tbody>
           <tr *ngFor="let r of serviceRequests">
-            <td>{{ r.name }}</td><td>{{ r.email }}</td><td>{{ r.phone }}</td><td>{{ r.requestedServiceName }}</td><td>{{ r.requestedAt | date:'short' }}</td>
-            <td><button class="btn btn-danger btn-sm" (click)="deleteServiceRequest(r.id)">Delete</button></td>
+            <td>{{ r.name || r.Name }}</td><td>{{ r.email || r.Email }}</td><td>{{ r.phone || r.Phone }}</td><td>{{ r.requestedServiceName || r.RequestedServiceName }}</td><td>{{ r.requestedAt || r.RequestedAt | date:'short' }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteServiceRequest(r.id || r.Id)">Delete</button></td>
           </tr>
         </tbody>
       </table>
@@ -117,8 +117,8 @@
       <table class="admin-table" *ngIf="clients.length > 0">
         <thead><tr><th>Name</th><th>Services</th><th>Staff</th><th>Actions</th></tr></thead>
         <tbody>
-          <tr *ngFor="let c of clients"><td>{{ c.name }}</td><td>{{ c.servicesAvailed }}</td><td>{{ c.staffAssigned }}</td>
-            <td><button class="btn btn-danger btn-sm" (click)="deleteClient(c.id)">Delete</button></td>
+          <tr *ngFor="let c of clients"><td>{{ c.name || c.Name }}</td><td>{{ c.servicesAvailed || c.ServicesAvailed }}</td><td>{{ c.staffAssigned || c.StaffAssigned }}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="deleteClient(c.id || c.Id)">Delete</button></td>
           </tr>
         </tbody>
       </table>

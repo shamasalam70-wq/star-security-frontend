@@ -22,8 +22,8 @@ export class EmployeeDashboard implements OnInit {
     const user = this.authService.getCurrentUser();
     if (user && user.role === 'Employee') {
       // Find the employee record by email
-      this.employeeService.getEmployees().subscribe(employees => {
-        this.employee = employees.find(e => e.email === user.email);
+      this.employeeService.getEmployees().subscribe((employees: any[]) => {
+        this.employee = employees.find((e: any) => e.email === user.email);
       });
     }
   }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { VacancyService } from '../../services/vacancy.service';
 
-
 @Component({
   selector: 'app-job-apply',
   standalone: true,
@@ -13,12 +12,26 @@ import { VacancyService } from '../../services/vacancy.service';
 })
 export class JobApply implements OnInit {
   vacancies: any[] = [];
+  loading = true;
 
   constructor(private vacancyService: VacancyService) {}
 
   ngOnInit() {
-    this.vacancyService.getVacancies().subscribe(data => {
-      this.vacancies = data;
+    this.loadVacancies();
+  }
+
+  loadVacancies() {
+    this.loading = true;
+    this.vacancyService.getVacancies().subscribe({
+      next: (data) => {
+        console.log('Public Vacancies:', data);
+        this.vacancies = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Public Vacancies error:', err);
+        this.loading = false;
+      }
     });
   }
 }

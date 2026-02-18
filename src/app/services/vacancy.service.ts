@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,13 @@ export class VacancyService {
   constructor(private http: HttpClient) { }
 
   getVacancies() {
-    return this.http.get<any[]>(`${this.apiUrl}`);
+    return this.http.get<any>(`${this.apiUrl}`).pipe(
+      map(res => {
+        // Handle both simple array and EF $values wrapper
+        if (res && res.$values) return res.$values;
+        return Array.isArray(res) ? res : [];
+      })
+    );
   }
 
   getVacancy(id: number) {

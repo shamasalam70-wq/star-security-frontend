@@ -1,25 +1,36 @@
 <div class="container pt-5 pb-5">
-  <div class="text-center mb-5">
-    <h2>Current Vacancies</h2>
-    <p>Select a position to apply</p>
+  <div class="text-center mb-5 mt-5">
+    <h2 class="text-primary">Careers at Star Security</h2>
+    <p>Explore current job openings and apply to join our professional team.</p>
+    <button class="btn btn-sm btn-outline-secondary mt-2" (click)="loadVacancies()">Refresh List</button>
   </div>
 
-  <div class="row" *ngIf="vacancies.length > 0; else noVacancies">
-    <div class="col-md-6 mb-4" *ngFor="let vacancy of vacancies">
-      <div class="card vacancy-card"
-           routerLink="/job-apply-form"
-           [queryParams]="{role: vacancy.title, vacancyId: vacancy.id}">
+  <div *ngIf="loading" class="text-center py-5">
+    <p>Loading vacancies...</p>
+  </div>
+
+  <div class="row" *ngIf="!loading && vacancies && vacancies.length > 0; else noVacancies">
+    <div class="col-md-6 mb-4" *ngFor="let v of vacancies">
+      <div class="card vacancy-card h-100 shadow-sm border-0 border-left border-primary" style="border-width: 5px !important;">
         <div class="card-body">
-          <h5>{{ vacancy.title }}</h5>
-          <p>{{ vacancy.description }}</p>
+          <h4 class="card-title text-primary font-weight-bold">{{ v.title || v.Title }}</h4>
+          <p class="card-text text-muted">{{ v.description || v.Description }}</p>
+          <div class="mt-4">
+            <a [routerLink]="['/job-apply-form']" 
+               [queryParams]="{ role: v.title || v.Title, vacancyId: v.id || v.Id }" 
+               class="btn btn-primary">
+               Apply Now
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <ng-template #noVacancies>
-    <div class="text-center">
-      <p>No vacancies available at the moment. Please check back later.</p>
+    <div *ngIf="!loading" class="text-center py-5 bg-light rounded">
+      <h3>No Job Openings</h3>
+      <p>There are no active vacancies at this time. Please check back later.</p>
     </div>
   </ng-template>
 </div>
