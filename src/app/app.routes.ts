@@ -1,3 +1,9 @@
+/* 
+ * This file defines the navigation paths (URLs) for our application.
+ * Each 'path' is linked to a 'component'. When the URL matches the path, 
+ * Angular displays that component.
+ */
+
 import { Routes } from '@angular/router';
 
 import { UserLayout } from './layouts/user-layout/user-layout';
@@ -14,20 +20,26 @@ import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { EmployeeDashboard } from './employee/employee-dashboard/employee-dashboard';
 
 export const routes: Routes = [
-  // USER WEBSITE (with navbar + footer)
+  /* 
+   * PUBLIC WEBSITE ROUTES
+   * These all use the 'UserLayout' (which has the navbar and footer).
+   */
   {
     path: '',
     component: UserLayout,
     children: [
-      { path: '', component: Home },
-      { path: 'service-request', component: ServiceRequest },
-      { path: 'job-apply', component: JobApply },
-      { path: 'job-apply-form', component: JobApplyForm },
-      { path: 'login', component: Login },
+      { path: '', component: Home }, // Home page
+      { path: 'service-request', component: ServiceRequest }, // Form for clients
+      { path: 'job-apply', component: JobApply }, // List of jobs
+      { path: 'job-apply-form', component: JobApplyForm }, // Job application form
+      { path: 'login', component: Login }, // Login page
     ]
   },
 
-  // ADMIN PANEL 
+  /* 
+   * ADMIN DASHBOARD ROUTES
+   * These use a different layout specifically for administrators.
+   */
   {
     path: 'admin',
     component: AdminLayout,
@@ -36,7 +48,10 @@ export const routes: Routes = [
     ]
   },
 
-  // EMPLOYEE PANEL
+  /* 
+   * EMPLOYEE DASHBOARD ROUTES
+   * These use the employee-specific layout.
+   */
   {
     path: 'employee',
     component: EmployeeLayout,
